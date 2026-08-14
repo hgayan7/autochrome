@@ -36,6 +36,37 @@ AI Agents can write code, browse the web, and run terminal commands. **Autochrom
 
 ---
 
+## 🖥️ Live Darkroom Preview: Mac Native & Web Studio
+
+Autochrome provides two preview experiences for monitoring AI agent edits in real-time, **preferring native Mac preview by default**:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                        DUAL LIVE PREVIEW MODES                                          │
+├────────────────────────────────────────────────────┬────────────────────────────────────────────────────┤
+│ 🍏 PREFERRED: NATIVE MAC PREVIEW WINDOW            │ 🌐 WEB BROWSER STUDIO (Cross-Platform)             │
+│ • Default mode on macOS                            │ • Access via browser at http://localhost:8000      │
+│ • Dedicated floating darkroom window               │ • Real-time WebSocket canvas streaming            │
+│ • Zero browser tabs or URL bar clutter             │ • Interactive Split-Screen Curtain Slider (Key: S) │
+│ • Native macOS Cocoa rendering & instant launch   │ • Hold-to-Compare Original View (Key: Space)       │
+│                                                    │ • Live Action Ledger & Quality Index telemetry     │
+└────────────────────────────────────────────────────┴────────────────────────────────────────────────────┘
+```
+
+### 1. Launch Native Mac Preview (Default Preferred)
+```bash
+autochrome preview path/to/your/photo.jpg
+```
+*Launches an isolated native macOS floating darkroom window that updates in real-time as the agent dispatches MCP tools.*
+
+### 2. Launch Web Browser Studio
+```bash
+autochrome preview path/to/your/photo.jpg --browser
+```
+*Opens the interactive Web Studio at `http://localhost:8000` with interactive curtain slider and comparison controls.*
+
+---
+
 ## 🚀 Quick Start
 
 ### 1. Installation
@@ -57,14 +88,7 @@ Watch the agent autonomously develop a photo and beautify a presentation screens
 ```bash
 autochrome demo
 ```
-*Opens your browser to `http://localhost:8000` and streams the live transformations step-by-step with hold-to-compare and split curtain slider controls.*
-
----
-
-### 3. Open Live Darkroom Preview on Any Image
-```bash
-autochrome preview path/to/your/photo.jpg
-```
+*Streams the live transformations step-by-step with hold-to-compare and split curtain slider controls.*
 
 ---
 
