@@ -1,0 +1,670 @@
+/* Autochrome Master Photographic Darkroom Design System */
+
+:root {
+    --bg-workspace: #08090b;
+    --bg-surface: #101215;
+    --bg-elevated: #16181d;
+    --bg-panel: rgba(18, 20, 25, 0.88);
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --border-medium: rgba(255, 255, 255, 0.14);
+    --border-active: rgba(255, 255, 255, 0.28);
+    --text-pure: #ffffff;
+    --text-primary: #e6e8eb;
+    --text-muted: #8b929a;
+    --text-dim: #545b64;
+    --accent-red: #e11d48;
+    --accent-amber: #f59e0b;
+    --accent-blue: #3b82f6;
+    --accent-green: #10b981;
+    --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-workspace);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    overflow: hidden;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.darkroom-workspace {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #101216 0%, #060708 100%);
+}
+
+/* ==========================================================================
+   Precision Header Bar
+   ========================================================================== */
+.studio-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 48px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    z-index: 20;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.brand-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand-mark {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-red);
+    border-radius: 2px;
+}
+
+.brand-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: var(--text-pure);
+}
+
+.brand-version {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    background: var(--bg-elevated);
+    border-radius: 4px;
+    border: 1px solid var(--border-subtle);
+}
+
+.telemetry-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.22);
+    border-radius: 4px;
+}
+
+.indicator-pulse {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-green);
+    border-radius: 50%;
+}
+
+.telemetry-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    color: var(--accent-green);
+}
+
+/* Action Ledger */
+.action-ledger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 14px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    max-width: 42%;
+}
+
+.ledger-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 0.6px;
+}
+
+.ledger-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Tool Buttons & Dock */
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    background: var(--bg-elevated);
+    padding: 3px;
+    border-radius: 6px;
+    border: 1px solid var(--border-subtle);
+    gap: 2px;
+}
+
+.tool-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.tool-btn:hover {
+    color: var(--text-pure);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.tool-btn.active {
+    color: var(--text-pure);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.tool-btn kbd {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-dim);
+    background: rgba(0, 0, 0, 0.35);
+    padding: 2px 4px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   Studio Viewport
+   ========================================================================== */
+.darkroom-viewport {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+}
+
+.darkroom-viewport:active {
+    cursor: grabbing;
+}
+
+.canvas-stage {
+    position: relative;
+    max-width: 90%;
+    max-height: 84%;
+    min-width: 320px;
+    min-height: 240px;
+    background: #0d0f12;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.08s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stage-img {
+    display: block;
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    pointer-events: auto;
+}
+
+.stage-img.original {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Split-Screen Curtain Divider
+   ========================================================================== */
+.split-curtain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.split-clipper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    border-right: 1px solid rgba(255, 255, 255, 0.85);
+}
+
+.split-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: none;
+    height: 100%;
+}
+
+.split-divider {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    cursor: ew-resize;
+    pointer-events: auto;
+    transform: translateX(-50%);
+    z-index: 6;
+}
+
+.divider-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 26px;
+    height: 26px;
+    background: var(--bg-surface);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    gap: 2px;
+}
+
+.handle-arrow {
+    font-size: 7px;
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Grid & Composition Overlay
+   ========================================================================== */
+.grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 4;
+}
+
+.grid-thirds {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.grid-thirds.vertical-1 { top: 0; left: 33.33%; width: 1px; height: 100%; }
+.grid-thirds.vertical-2 { top: 0; left: 66.66%; width: 1px; height: 100%; }
+.grid-thirds.horizontal-1 { top: 33.33%; left: 0; width: 100%; height: 1px; }
+.grid-thirds.horizontal-2 { top: 66.66%; left: 0; width: 100%; height: 1px; }
+
+/* ==========================================================================
+   Scopes HUD (Histogram & Zone System)
+   ========================================================================== */
+.scopes-hud {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 240px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 10;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.hud-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.hud-title {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+}
+
+.hud-meta {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    color: var(--text-dim);
+}
+
+.histogram-canvas-wrap {
+    width: 100%;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+}
+
+#histogramCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Ansel Adams 11-Zone Ruler */
+.zone-ruler {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.zone-tag {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    color: var(--text-dim);
+    cursor: default;
+}
+
+.zone-tag.mid {
+    color: var(--accent-amber);
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   Pixel Inspector HUD
+   ========================================================================== */
+.pixel-inspector {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    padding: 8px 12px;
+    z-index: 10;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.color-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.inspector-data {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.data-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-k {
+    font-family: var(--font-mono);
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.data-v {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   Studio Telemetry Footer
+   ========================================================================== */
+.studio-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 36px;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-subtle);
+    font-size: 11px;
+    color: var(--text-muted);
+    z-index: 20;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer-metric {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.metric-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text-dim);
+}
+
+.metric-val {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.footer-center {
+    display: flex;
+    align-items: center;
+}
+
+.hint-text {
+    font-size: 11px;
+    color: var(--text-dim);
+}
+
+.hint-text kbd {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1px 4px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+}
+
+.sync-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sync-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent-green);
+    border-radius: 50%;
+}
+
+.sync-text {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    color: var(--text-dim);
+}
+
+/* ==========================================================================
+   Co-Pilot Adjustments Drawer
+   ========================================================================== */
+.copilot-drawer {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 260px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 15;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.reset-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 8px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.reset-btn:hover {
+    color: var(--text-pure);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.slider-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.slider-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.slider-val {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-primary);
+}
+
+.studio-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    outline: none;
+}
+
+.studio-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.apply-copilot-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--text-pure);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin-top: 4px;
+}
+
+.apply-copilot-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}

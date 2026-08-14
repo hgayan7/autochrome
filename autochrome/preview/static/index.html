@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autochrome • Master Photographic Darkroom</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app" class="darkroom-workspace">
+        <!-- Precision Industrial Top Bar -->
+        <header class="studio-header">
+            <div class="header-left">
+                <div class="brand-badge">
+                    <span class="brand-mark"></span>
+                    <span class="brand-name">AUTOCHROME</span>
+                    <span class="brand-version">PRO 2.4</span>
+                </div>
+                <div class="telemetry-chip">
+                    <span class="indicator-pulse"></span>
+                    <span class="telemetry-label" id="agentState">STUDIO IDLE</span>
+                </div>
+            </div>
+
+            <!-- Action Description Display -->
+            <div class="action-ledger" id="actionLedger">
+                <span class="ledger-label">LAST ACTION</span>
+                <span class="ledger-text" id="actionDesc">Awaiting Agent Instruction</span>
+            </div>
+
+            <!-- Tool Dock -->
+            <div class="header-right">
+                <div class="button-group">
+                    <button id="btnHoldCompare" class="tool-btn" title="Hold to view original (Shortcut: Space)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        <span>Compare</span>
+                        <kbd>Space</kbd>
+                    </button>
+                    <button id="btnSplitToggle" class="tool-btn" title="Split-screen curtain slider (Shortcut: S)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18"/></svg>
+                        <span>Split</span>
+                        <kbd>S</kbd>
+                    </button>
+                    <button id="btnHistogramToggle" class="tool-btn active" title="Toggle RGB & Zone Scopes (Shortcut: H)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 6 5-10"/></svg>
+                        <span>Scopes</span>
+                        <kbd>H</kbd>
+                    </button>
+                    <button id="btnCopilotToggle" class="tool-btn" title="Toggle Co-Pilot Sliders (Shortcut: C)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                        <span>Co-Pilot</span>
+                        <kbd>C</kbd>
+                    </button>
+                    <button id="btnGridToggle" class="tool-btn" title="Rule of Thirds & VLM Grid (Shortcut: G)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+                        <span>Grid</span>
+                        <kbd>G</kbd>
+                    </button>
+                    <button id="btnFit" class="tool-btn" title="Fit to screen (Shortcut: 0)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+                        <span>Fit</span>
+                        <kbd>0</kbd>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Studio Viewport Stage -->
+        <main class="darkroom-viewport" id="viewport">
+            <div class="canvas-stage" id="canvasWrapper">
+                <!-- Live Image -->
+                <img id="liveImage" class="stage-img live" alt="Live Canvas Render">
+                
+                <!-- Full Original Reference (Hidden unless Hold-Compare) -->
+                <img id="originalImage" class="stage-img original hidden" alt="Original Reference">
+
+                <!-- Split Curtain Container -->
+                <div id="splitCurtain" class="split-curtain hidden">
+                    <div class="split-clipper" id="splitClipper">
+                        <img id="splitOriginalImage" class="stage-img split-img" alt="Split Original View">
+                    </div>
+                    <div class="split-divider" id="splitDivider">
+                        <div class="divider-handle">
+                            <span class="handle-arrow">◀</span>
+                            <span class="handle-arrow">▶</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overlays -->
+                <div id="gridOverlay" class="grid-overlay hidden">
+                    <div class="grid-thirds vertical-1"></div>
+                    <div class="grid-thirds vertical-2"></div>
+                    <div class="grid-thirds horizontal-1"></div>
+                    <div class="grid-thirds horizontal-2"></div>
+                </div>
+            </div>
+
+            <!-- Floating Scopes HUD (RGB Histogram & Ansel Adams Zones) -->
+            <aside class="scopes-hud" id="scopesHud">
+                <div class="hud-header">
+                    <span class="hud-title">HISTOGRAM & ZONE SYSTEM</span>
+                    <span class="hud-meta" id="channelMeta">RGB LUMINANCE</span>
+                </div>
+                <div class="histogram-canvas-wrap">
+                    <canvas id="histogramCanvas" width="220" height="90"></canvas>
+                </div>
+                <!-- Ansel Adams 11-Zone Ruler -->
+                <div class="zone-ruler">
+                    <span class="zone-tag" title="Zone 0: Pure Black">0</span>
+                    <span class="zone-tag" title="Zone I: Near Black">I</span>
+                    <span class="zone-tag" title="Zone II: Deep Shadow">II</span>
+                    <span class="zone-tag" title="Zone III: Textured Shadow">III</span>
+                    <span class="zone-tag" title="Zone IV: Medium Dark">IV</span>
+                    <span class="zone-tag mid" title="Zone V: 18% Neutral Grey (Skin Midtone)">V</span>
+                    <span class="zone-tag" title="Zone VI: Light Skin">VI</span>
+                    <span class="zone-tag" title="Zone VII: Pale Highlights">VII</span>
+                    <span class="zone-tag" title="Zone VIII: Soft White">VIII</span>
+                    <span class="zone-tag" title="Zone IX: Bright White">IX</span>
+                    <span class="zone-tag" title="Zone X: Pure Specular White">X</span>
+                </div>
+            </aside>
+
+            <!-- Floating Co-Pilot Sliders Drawer -->
+            <aside class="copilot-drawer hidden" id="copilotDrawer">
+                <div class="hud-header">
+                    <span class="hud-title">CO-PILOT ADJUSTMENTS</span>
+                    <button class="reset-btn" id="btnResetCopilot">RESET</button>
+                </div>
+                <div class="slider-group">
+                    <div class="slider-row">
+                        <div class="slider-label"><span>Exposure</span><span class="slider-val" id="valExposure">0</span></div>
+                        <input type="range" id="sliderExposure" min="-100" max="100" value="0" class="studio-slider">
+                    </div>
+                    <div class="slider-row">
+                        <div class="slider-label"><span>Contrast</span><span class="slider-val" id="valContrast">0</span></div>
+                        <input type="range" id="sliderContrast" min="-100" max="100" value="0" class="studio-slider">
+                    </div>
+                    <div class="slider-row">
+                        <div class="slider-label"><span>Ambiance</span><span class="slider-val" id="valAmbiance">0</span></div>
+                        <input type="range" id="sliderAmbiance" min="-100" max="100" value="0" class="studio-slider">
+                    </div>
+                    <div class="slider-row">
+                        <div class="slider-label"><span>Warmth</span><span class="slider-val" id="valWarmth">0</span></div>
+                        <input type="range" id="sliderWarmth" min="-100" max="100" value="0" class="studio-slider">
+                    </div>
+                    <div class="slider-row">
+                        <div class="slider-label"><span>Saturation</span><span class="slider-val" id="valSaturation">0</span></div>
+                        <input type="range" id="sliderSaturation" min="-100" max="100" value="0" class="studio-slider">
+                    </div>
+                    <div class="slider-row">
+                        <div class="slider-label"><span>Structure</span><span class="slider-val" id="valStructure">0</span></div>
+                        <input type="range" id="sliderStructure" min="-100" max="100" value="0" class="studio-slider">
+                    </div>
+                </div>
+                <button class="apply-copilot-btn" id="btnApplyCopilot">COMMIT TO CANVAS</button>
+            </aside>
+
+            <!-- Floating Pixel Inspector HUD -->
+            <div class="pixel-inspector" id="pixelInspector">
+                <div class="color-swatch" id="inspectorSwatch"></div>
+                <div class="inspector-data">
+                    <div class="data-row">
+                        <span class="data-k">XY</span>
+                        <span class="data-v" id="inspectorCoords">-- , --</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-k">HEX</span>
+                        <span class="data-v" id="inspectorHex">#000000</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-k">RGB</span>
+                        <span class="data-v" id="inspectorRGB">0, 0, 0</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Master Telemetry Footer -->
+        <footer class="studio-footer">
+            <div class="footer-left">
+                <div class="footer-metric">
+                    <span class="metric-label">DIMENSIONS</span>
+                    <span class="metric-val" id="dimVal">-- × -- px</span>
+                </div>
+                <div class="footer-metric">
+                    <span class="metric-label">COLOR SPACE</span>
+                    <span class="metric-val">sRGB D65 • 8-Bit</span>
+                </div>
+                <div class="footer-metric">
+                    <span class="metric-label">HISTORY</span>
+                    <span class="metric-val" id="actionCountVal">0 Actions</span>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <span class="hint-text"><kbd>Space</kbd> Hold Compare &nbsp;•&nbsp; <kbd>S</kbd> Split Curtain &nbsp;•&nbsp; <kbd>Scroll</kbd> Zoom &nbsp;•&nbsp; <kbd>Drag</kbd> Pan</span>
+            </div>
+
+            <div class="footer-right">
+                <div class="sync-status">
+                    <span class="sync-dot"></span>
+                    <span class="sync-text">HARDWARE ACCELERATED</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
