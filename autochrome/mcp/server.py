@@ -8,9 +8,14 @@ from autochrome.mcp import tools
 mcp_server = MCPServer("autochrome", description="Autonomous photographic color science and image editing studio for AI agents")
 
 
-@mcp_server.tool(name="open_image", description="Loads an image from local filesystem into the active session.")
-def open_image(image_path: str) -> Dict[str, Any]:
-    return tools.tool_open_image(image_path)
+@mcp_server.tool(name="open_image", description="Loads an image from local filesystem into the active session and automatically launches the Live Darkroom Preview window (Native Mac window or browser).")
+def open_image(image_path: str, launch_preview: bool = True) -> Dict[str, Any]:
+    return tools.tool_open_image(image_path, launch_preview=launch_preview)
+
+
+@mcp_server.tool(name="start_preview", description="Starts the Live Darkroom Preview window (Native macOS floating window or browser) for real-time visual monitoring.")
+def start_preview(native: bool = True, port: int = 8000, browser: bool = False) -> Dict[str, Any]:
+    return tools.tool_start_preview(native=native, port=port, browser=browser)
 
 
 @mcp_server.tool(name="export_image", description="Exports the final edited composite image to disk (format: 'PNG', 'JPEG', 'WEBP').")

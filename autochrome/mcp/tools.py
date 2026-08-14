@@ -48,15 +48,40 @@ def set_active_canvas(canvas: Canvas):
 
 # Tool implementations callable by MCP or SDK
 
-def tool_open_image(image_path: str) -> Dict[str, Any]:
-    """Loads an image from local filesystem into the active session."""
+def tool_open_image(image_path: str, launch_preview: bool = True) -> Dict[str, Any]:
+    """Loads an image from local filesystem into the active session and automatically launches live preview."""
+    import sys
     canvas = Canvas.from_file(image_path)
     set_active_canvas(canvas)
     metrics = analyze_photographic_scene(canvas.render())
+    preview_url = None
+    if launch_preview:
+        from autochrome.preview.window import launch_live_preview
+        try:
+            preview_url = launch_live_preview(canvas, native=(sys.platform == "darwin"))
+        except Exception:
+            pass
+
     return {
         "status": "success",
         "message": f"Loaded {image_path} ({canvas.width}x{canvas.height})",
+        "preview_url": preview_url or "http://127.0.0.1:8000",
+        "live_preview_active": bool(preview_url),
         "scene_analysis": metrics,
+    }
+
+
+def tool_start_preview(native: bool = True, port: int = 8000, browser: bool = False) -> Dict[str, Any]:
+    """Starts the real-time Live Darkroom Preview (native macOS floating window or browser)."""
+    import sys
+    canvas = get_active_canvas()
+    from autochrome.preview.window import launch_live_preview
+    url = launch_live_preview(canvas, port=port, native=native, browser=browser)
+    return {
+        "status": "success",
+        "preview_url": url,
+        "mode": "native_macos_window" if (native and sys.platform == "darwin") else "web_browser",
+        "message": "Live preview window is active. Transformations will stream in real-time.",
     }
 
 

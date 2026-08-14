@@ -11,6 +11,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MCP Ready](https://img.shields.io/badge/MCP-Standard%20stdio-green.svg)](https://modelcontextprotocol.io/)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-blueviolet.svg)](SKILL.md)
 [![Zero Diffusion Distortions](https://img.shields.io/badge/CV-100%25%20Deterministic-orange.svg)](https://github.com/hgayan7/autochrome)
 
 </div>
@@ -92,9 +93,13 @@ autochrome demo
 
 ---
 
-## 🤖 Connecting to AI Agents (Claude Code, Cursor, Gemini)
+## 🤖 Connecting to AI Agents (Claude Code, Cursor, Gemini, Antigravity)
 
-### Claude Desktop Configuration
+Autochrome provides both **MCP Tools** (the execution engine) and an **Agent Skill (`SKILL.md`)** (the artistic heuristics and photographic color science brain).
+
+### 1. MCP Server Configuration (Tools)
+
+#### Claude Desktop Configuration
 Add Autochrome to your `claude_desktop_config.json`:
 
 ```json
@@ -108,7 +113,7 @@ Add Autochrome to your `claude_desktop_config.json`:
 }
 ```
 
-### Cursor & Antigravity MCP Setup
+#### Cursor & Antigravity MCP Setup
 In `.cursor/mcp.json` or Antigravity MCP settings:
 ```json
 {
@@ -123,7 +128,45 @@ In `.cursor/mcp.json` or Antigravity MCP settings:
 
 ---
 
+### 2. 🧠 Agent Skill Setup (`SKILL.md`)
+
+While MCP provides the raw tool endpoints, the **Autochrome Skill ([`SKILL.md`](SKILL.md))** teaches AI agents *how* to edit like professional colorists and master photographers rather than blindly executing random adjustments.
+
+#### Installing the Skill for AI Agents
+
+```bash
+# Antigravity & Gemini CLI
+mkdir -p ~/.gemini/config/skills/autochrome
+cp SKILL.md ~/.gemini/config/skills/autochrome/SKILL.md
+
+# Claude Code
+mkdir -p ~/.claude/skills/autochrome
+cp SKILL.md ~/.claude/skills/autochrome/SKILL.md
+
+# Cursor
+mkdir -p .cursor/skills/autochrome
+cp SKILL.md .cursor/skills/autochrome/SKILL.md
+```
+
+#### What the Agent Skill Teaches the Model:
+1. **Scene-Aware Diagnosis Before Editing**: Enforces calling `inspect_image()` first to assess Zone System exposure balance, lighting conditions, and dynamic range.
+2. **Preserving Optical Depth-of-Field**: Prohibits applying fake elliptical lens blur when real optical depth already exists, preventing ugly edge halos.
+3. **Vectorscope Skin Tone Line (120° I-Line)**: Uses 8-channel HSL mixer (`orange` / `red` channels) to boost skin radiance without shifting background or clothing colors.
+4. **Cinematic 3-Way Separation & Split Toning**: Balances cool navy shadows (`215°`) against warm champagne highlights (`38-45°`).
+5. **Curated Style Playbooks**: Turnkey recipes for Golden Hour Editorial Portraits, High-Contrast Noir Monochrome, Document Restoration, and macOS Presentation Mockups.
+
+---
+
 ## 🛠️ Complete MCP Tool Catalog
+
+### 🖥️ Live Darkroom Preview & Session Control
+| Tool Name | Parameters | Description |
+| :--- | :--- | :--- |
+| `open_image` | `image_path`, `launch_preview` | Loads photo into active canvas and auto-launches Live Preview (Native macOS floating window or browser) |
+| `start_preview` | `native`, `port`, `browser` | Explicitly launches or connects the real-time Live Darkroom Preview window |
+| `export_image` | `output_path`, `format`, `quality` | Exports final edited composite image to disk (`PNG`, `JPEG`, `WEBP`) |
+| `undo` | *none* | Undoes the last editing action on the active canvas |
+| `redo` | *none* | Redoes the last undone action |
 
 ### 📸 Photographic Color Science & Deterministic CV Tools
 | Tool Name | Parameters | Description |
