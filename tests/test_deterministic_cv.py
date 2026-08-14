@@ -60,3 +60,38 @@ def test_mcp_cv_tools_execution(sample_test_image):
 
     res_zs = tools.tool_zone_system_calibration()
     assert res_zs["status"] == "success"
+
+
+def test_modality_detection_ui_screenshot():
+    from autochrome.vision.analyze import analyze_photographic_scene
+    # Create synthetic UI screenshot (white background with black header and buttons)
+    img = Image.new("RGB", (1200, 800), (255, 255, 255))
+    arr = np.array(img)
+    arr[0:60, :] = [24, 24, 27]  # Dark navbar
+    arr[100:200, 100:500] = [240, 242, 245]  # Card
+    arr[140:180, 400:480] = [0, 122, 255]  # Blue button
+    screenshot = Image.fromarray(arr)
+
+    analysis = analyze_photographic_scene(screenshot)
+    assert analysis["is_photograph"] is False
+    assert "ui_screenshot" in analysis["content_modality"] or "light_ui" in analysis["content_modality"]
+    assert analysis["ui_analysis"]["theme"] == "light_mode"
+    assert "DO NOT apply lens blur to UI screenshots" in analysis["optical_depth_evaluation"]["blur_recommendation"]
+
+
+def test_scale_invariance_photograph():
+    from autochrome.vision.analyze import analyze_photographic_scene
+    # Create organic photo gradient with natural noise
+    np.random.seed(42)
+    base_small = np.random.randint(60, 180, (400, 600, 3), dtype=np.uint8)
+    photo_small = Image.fromarray(base_small)
+    photo_large = photo_small.resize((1600, 2400), Image.Resampling.BILINEAR)
+
+    res_small = analyze_photographic_scene(photo_small)
+    res_large = analyze_photographic_scene(photo_large)
+
+    assert res_small["is_photograph"] is True
+    assert res_large["is_photograph"] is True
+    assert res_small["lighting_scenario"]["type"] == res_large["lighting_scenario"]["type"]
+    assert abs(res_small["lighting_scenario"]["mean_luminance"] - res_large["lighting_scenario"]["mean_luminance"]) < 2.0
+
