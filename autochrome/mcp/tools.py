@@ -401,6 +401,98 @@ def tool_apply_look(look_name: str = "linkedin_pro") -> Dict[str, Any]:
     return {"status": "success", "look": look_name}
 
 
+def tool_classify_scene() -> Dict[str, Any]:
+    """Analyzes scene semantics, content genre (portrait, landscape, street, architecture), and returns adaptive grading recommendations."""
+    from autochrome.vision.scene_classifier import classify_scene_content
+    canvas = get_active_canvas()
+    return classify_scene_content(canvas.render())
+
+
+def tool_smart_develop(target_mood: str = "auto") -> Dict[str, Any]:
+    """Scene-Aware Master Development: autonomously classifies scene content and produces an optimal studio-grade master edit."""
+    from autochrome.engine.smart_develop import smart_develop
+    canvas = get_active_canvas()
+    developed, report = smart_develop(canvas.render(), target_mood=target_mood)
+    desc = f"Smart Developed ({report.get('selected_stock', 'Auto')}) - Gain: +{report.get('score_improvement', 0)} pts"
+    canvas.replace_base_image(developed, "smart_develop", desc, {"report": report})
+    return {"status": "success", "report": report}
+
+
+def tool_apply_film_stock(stock_name: str = "kodak_portra_400", protect_skin: bool = True) -> Dict[str, Any]:
+    """Applies one of the 13 authentic analog film stocks with built-in scene adaptation and skin protection:
+    'kodak_portra_400', 'kodak_portra_160', 'cinestill_800t', 'kodak_trix_400', 'ilford_hp5',
+    'fuji_velvia_50', 'fuji_provia_100f', 'kodachrome_64', 'fuji_classic_chrome', 'polaroid_sx70',
+    'agfa_vista_200', 'technicolor_2strip', 'technicolor_3strip'.
+    """
+    from autochrome.engine.film_stocks import apply_film_stock, FILM_STOCKS_METADATA
+    canvas = get_active_canvas()
+    edited = apply_film_stock(canvas.render(), stock_name=stock_name, protect_skin=protect_skin)
+    clean_stock = stock_name.lower().replace("-", "_").replace(" ", "_")
+    meta = FILM_STOCKS_METADATA.get(clean_stock, {"name": clean_stock, "description": "Analog film emulation"})
+    canvas.replace_base_image(edited, "film_stock", f"Applied Film Stock: {meta['name']}")
+    return {"status": "success", "stock": clean_stock, "name": meta.get("name"), "description": meta.get("description")}
+
+
+def tool_list_film_stocks() -> Dict[str, Any]:
+    """Lists all 13 authentic analog film stock emulations with metadata and best use cases."""
+    from autochrome.engine.film_stocks import list_available_film_stocks
+    return {"status": "success", "film_stocks": list_available_film_stocks()}
+
+
+def tool_apply_film_halation(threshold: float = 215.0, radius: float = 24.0, intensity: float = 0.65) -> Dict[str, Any]:
+    """Applies CineStill-style crimson-orange specular halation bloom around intense light sources."""
+    from autochrome.engine.optical_fx import apply_film_halation
+    canvas = get_active_canvas()
+    edited = apply_film_halation(canvas.render(), threshold=threshold, radius=radius, intensity=intensity)
+    canvas.replace_base_image(edited, "film_halation", f"Film Halation (Radius: {radius}, Intensity: {intensity})")
+    return {"status": "success", "threshold": threshold, "radius": radius, "intensity": intensity}
+
+
+def tool_apply_orton_effect(strength: float = 0.30, blur_radius: float = 30.0, glow_mode: str = "soft_light") -> Dict[str, Any]:
+    """Applies the classic Orton Effect (Dreamy Glow Diffusion) while preserving underlying micro-contrast."""
+    from autochrome.engine.optical_fx import apply_orton_effect
+    canvas = get_active_canvas()
+    edited = apply_orton_effect(canvas.render(), strength=strength, blur_radius=blur_radius, glow_mode=glow_mode)
+    canvas.replace_base_image(edited, "orton_effect", f"Orton Dreamy Glow (Strength: {strength})")
+    return {"status": "success", "strength": strength, "blur_radius": blur_radius, "glow_mode": glow_mode}
+
+
+def tool_apply_bleach_bypass(strength: float = 0.60, contrast_boost: float = 1.25) -> Dict[str, Any]:
+    """Simulates chemical Bleach Bypass (Silver Retention) for a gritty, high-contrast, desaturated cinematic aesthetic."""
+    from autochrome.engine.optical_fx import apply_bleach_bypass
+    canvas = get_active_canvas()
+    edited = apply_bleach_bypass(canvas.render(), strength=strength, contrast_boost=contrast_boost)
+    canvas.replace_base_image(edited, "bleach_bypass", f"Bleach Bypass Silver Retention ({int(strength*100)}%)")
+    return {"status": "success", "strength": strength, "contrast_boost": contrast_boost}
+
+
+def tool_dehaze_image(strength: float = 0.70, window_size: int = 15) -> Dict[str, Any]:
+    """Removes atmospheric haze, fog, and milkiness using Dark Channel Prior (DCP) physical transmission modeling."""
+    from autochrome.engine.optical_fx import dehaze_image
+    canvas = get_active_canvas()
+    edited = dehaze_image(canvas.render(), strength=strength, window_size=window_size)
+    canvas.replace_base_image(edited, "dehaze", f"Dark Channel Prior Dehaze (Strength: {strength})")
+    return {"status": "success", "strength": strength, "window_size": window_size}
+
+
+def tool_set_color_temperature_kelvin(kelvin: int = 5500, tint: float = 0.0) -> Dict[str, Any]:
+    """Adjusts physical color temperature in Kelvin (2000K-12000K) and green/magenta tint using Planckian Blackbody modeling."""
+    from autochrome.engine.optical_fx import set_color_temperature_kelvin
+    canvas = get_active_canvas()
+    edited = set_color_temperature_kelvin(canvas.render(), kelvin=kelvin, tint=tint)
+    canvas.replace_base_image(edited, "color_temperature_kelvin", f"Kelvin White Balance ({kelvin}K, Tint: {tint})")
+    return {"status": "success", "kelvin": kelvin, "tint": tint}
+
+
+def tool_add_photographic_grain(amount: float = 24.0, size: float = 1.0, roughness: float = 0.5) -> Dict[str, Any]:
+    """Adds authentic density-dependent silver halide film grain peaking in midtones and fading in pure highlights and blacks."""
+    from autochrome.engine.optical_fx import add_photographic_grain
+    canvas = get_active_canvas()
+    edited = add_photographic_grain(canvas.render(), amount=amount, size=size, roughness=roughness, luminance_aware=True)
+    canvas.replace_base_image(edited, "photographic_grain", f"Silver Halide Film Grain (Amount: {amount}, Size: {size})")
+    return {"status": "success", "amount": amount, "size": size, "roughness": roughness}
+
+
 def tool_apply_film_profile(profile: str = "kodak_portra_400") -> Dict[str, Any]:
     """Applies authentic analog film emulation ('kodak_portra_400', 'fuji_pro_400h', 'cinematic_teal_orange', 'moody_nordic')."""
     from autochrome.engine.film_emulation import apply_film_profile, FILM_PROFILES

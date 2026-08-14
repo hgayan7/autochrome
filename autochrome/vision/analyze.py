@@ -32,7 +32,7 @@ def detect_content_modality(arr_rgb: np.ndarray, lum: np.ndarray) -> Tuple[str, 
     # Classification heuristics
     mean_lum = float(np.mean(lum))
     
-    if flat_ratio > 0.30 or top_color_dominance > 0.35:
+    if (flat_ratio > 0.45 and top_color_dominance > 0.40) or (flat_ratio > 0.65):
         # It is a digital UI, screenshot, document, or graphic
         if mean_lum > 220 and flat_ratio > 0.50:
             modality = "document_or_light_ui"

@@ -222,9 +222,19 @@ tools.tool_export_image("output.png")
 | `undo` | *none* | Undoes the last editing action on the active canvas |
 | `redo` | *none* | Redoes the last undone action |
 
-### 📸 Photographic Color Science & Deterministic CV Tools
+### 📸 Photographic Color Science & Analog Film Stocks
 | Tool Name | Parameters | Description |
 | :--- | :--- | :--- |
+| `classify_scene` | *none* | Scene semantics, content genre (portrait, landscape, street, architecture), and adaptive recommendations |
+| `smart_develop` | `target_mood: str = "auto"` | Autonomous scene-aware master development: diagnoses scene, adapts film stock, retouches portraits, and refines details |
+| `apply_film_stock` | `stock_name: str`, `protect_skin: bool = True` | 13 authentic analog film stocks (`kodak_portra_400`, `cinestill_800t`, `fuji_velvia_50`, `kodak_trix_400`, `kodachrome_64`, `fuji_classic_chrome`, `polaroid_sx70`, `technicolor_3strip`, etc.) |
+| `list_film_stocks` | *none* | Lists all 13 authentic film stock emulations with metadata and best use cases |
+| `apply_film_halation` | `threshold: float = 215.0`, `radius: float = 24.0`, `intensity: float = 0.65` | CineStill-style crimson-orange specular halation bloom on intense light sources |
+| `apply_orton_effect` | `strength: float = 0.30`, `blur_radius: float = 30.0` | Classic Michael Orton dreamy glow diffusion with micro-contrast retention |
+| `apply_bleach_bypass` | `strength: float = 0.60`, `contrast_boost: float = 1.25` | Chemical silver retention for a gritty, high-contrast, desaturated cinematic aesthetic |
+| `dehaze_image` | `strength: float = 0.70`, `window_size: int = 15` | Dark Channel Prior (DCP) atmospheric haze and fog removal |
+| `set_color_temperature_kelvin` | `kelvin: int = 5500`, `tint: float = 0.0` | Physical 2000K-12000K Planckian Blackbody white balance and green/magenta tint |
+| `add_photographic_grain` | `amount: float = 24.0`, `size: float = 1.0`, `roughness: float = 0.5` | Authentic density-dependent silver halide film grain peaking in Zone V midtones |
 | `master_develop` | *none* | Autonomous 5-phase master development loop elevating quality scores to 90+ Master Studio Quality |
 | `score_quality` | *none* | Computes 0-100 Photographic Aesthetic Index across Dynamic Range, Skin Radiance, Sharpness |
 | `apply_3d_cube_lut` | `cube_path_or_content: str` | Applies DaVinci Resolve / ARRI 3D LUT (.cube format) using trilinear interpolation |
@@ -246,7 +256,6 @@ tools.tool_export_image("output.png")
 | `adaptive_color_grade` | `mood: str = "photographic"` | Analyzes image histogram & lighting to compute and apply a custom tailored grade |
 | `hsl_color_mixer` | `hue_shifts`, `saturation_shifts`, `luminance_shifts` | 8-Channel targeted color grading (Orange for skin, Green for eyes, etc.) |
 | `color_wheels_grade` | `shadow_hue`, `shadow_sat`, `shadow_lum`, `mid_*`, `high_*` | 3-Way Lift/Gamma/Gain color wheels grading |
-| `apply_film_profile` | `profile: str` | Analog film emulation (`kodak_portra_400`, `fuji_pro_400h`, `cinematic_teal_orange`, `moody_nordic`) |
 | `tune_image` | `brightness`, `contrast`, `ambiance`, `highlights`, `shadows`, `warmth`, `tint`, `saturation` | Primary tone curve and local dynamic balancing (-100 to +100) |
 | `adjust_details` | `structure: float = 0.0`, `sharpening: float = 0.0` | Fine micro-contrast texture pop and high-pass sharpening |
 | `adjust_curves` | `preset: str = "hard_contrast"`, `channel: str = "rgb"` | Spline tone curves (`hard_contrast`, `brighten`, `darken`, `matte_vintage`, `cross_process`) |

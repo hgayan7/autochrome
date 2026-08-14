@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 
 
-def detect_primary_face(image: Image.Image) -> Optional[Tuple[int, int, int, int]]:
+def detect_primary_face(image: Image.Image, fallback_to_center: bool = False) -> Optional[Tuple[int, int, int, int]]:
     """Detects primary face bounding box (x, y, width, height) using skin tone and luminance saliency."""
     img_rgb = image.convert("RGB")
     w, h = image.size
@@ -29,14 +29,17 @@ def detect_primary_face(image: Image.Image) -> Optional[Tuple[int, int, int, int
     y_weights = np.linspace(1.2, 0.4, thumb_h)[:, np.newaxis]
     weighted_mask = skin_mask.astype(np.float32) * y_weights
 
-    if np.sum(weighted_mask) < 20:
-        # Fallback to rule of thirds center face box
-        return (int(w * 0.25), int(h * 0.15), int(w * 0.5), int(h * 0.5))
+    if np.sum(weighted_mask) < 35:
+        if fallback_to_center:
+            return (int(w * 0.25), int(h * 0.15), int(w * 0.5), int(h * 0.5))
+        return None
 
     # Find center of mass of face cluster
     y_indices, x_indices = np.where(weighted_mask > 0.5)
-    if len(x_indices) == 0:
-        return (int(w * 0.25), int(h * 0.15), int(w * 0.5), int(h * 0.5))
+    if len(x_indices) < 20:
+        if fallback_to_center:
+            return (int(w * 0.25), int(h * 0.15), int(w * 0.5), int(h * 0.5))
+        return None
 
     scale_x = w / float(thumb_w)
     scale_y = h / float(thumb_h)

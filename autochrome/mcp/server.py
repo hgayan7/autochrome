@@ -177,6 +177,56 @@ def match_color_to_reference(reference_image_path: str, strength: float = 0.85) 
     return tools.tool_match_color_to_reference(reference_image_path, strength)
 
 
+@mcp_server.tool(name="classify_scene", description="Analyzes scene semantics, content genre (portrait, landscape, street, architecture), and returns adaptive grading recommendations.")
+def classify_scene() -> Dict[str, Any]:
+    return tools.tool_classify_scene()
+
+
+@mcp_server.tool(name="smart_develop", description="Scene-Aware Master Development: autonomously classifies scene content and produces an optimal studio-grade master edit.")
+def smart_develop(target_mood: str = "auto") -> Dict[str, Any]:
+    return tools.tool_smart_develop(target_mood)
+
+
+@mcp_server.tool(name="apply_film_stock", description="Applies one of the 13 authentic analog film stocks with built-in scene adaptation and skin protection ('kodak_portra_400', 'kodak_portra_160', 'cinestill_800t', 'kodak_trix_400', 'ilford_hp5', 'fuji_velvia_50', 'fuji_provia_100f', 'kodachrome_64', 'fuji_classic_chrome', 'polaroid_sx70', 'agfa_vista_200', 'technicolor_2strip', 'technicolor_3strip').")
+def apply_film_stock(stock_name: str = "kodak_portra_400", protect_skin: bool = True) -> Dict[str, Any]:
+    return tools.tool_apply_film_stock(stock_name, protect_skin)
+
+
+@mcp_server.tool(name="list_film_stocks", description="Lists all 13 authentic analog film stock emulations with metadata and best use cases.")
+def list_film_stocks() -> Dict[str, Any]:
+    return tools.tool_list_film_stocks()
+
+
+@mcp_server.tool(name="apply_film_halation", description="Applies CineStill-style crimson-orange specular halation bloom around intense light sources.")
+def apply_film_halation(threshold: float = 215.0, radius: float = 24.0, intensity: float = 0.65) -> Dict[str, Any]:
+    return tools.tool_apply_film_halation(threshold, radius, intensity)
+
+
+@mcp_server.tool(name="apply_orton_effect", description="Applies the classic Orton Effect (Dreamy Glow Diffusion) while preserving underlying micro-contrast.")
+def apply_orton_effect(strength: float = 0.30, blur_radius: float = 30.0, glow_mode: str = "soft_light") -> Dict[str, Any]:
+    return tools.tool_apply_orton_effect(strength, blur_radius, glow_mode)
+
+
+@mcp_server.tool(name="apply_bleach_bypass", description="Simulates chemical Bleach Bypass (Silver Retention) for a gritty, high-contrast, desaturated cinematic aesthetic.")
+def apply_bleach_bypass(strength: float = 0.60, contrast_boost: float = 1.25) -> Dict[str, Any]:
+    return tools.tool_apply_bleach_bypass(strength, contrast_boost)
+
+
+@mcp_server.tool(name="dehaze_image", description="Removes atmospheric haze, fog, and milkiness using Dark Channel Prior (DCP) physical transmission modeling.")
+def dehaze_image(strength: float = 0.70, window_size: int = 15) -> Dict[str, Any]:
+    return tools.tool_dehaze_image(strength, window_size)
+
+
+@mcp_server.tool(name="set_color_temperature_kelvin", description="Adjusts physical color temperature in Kelvin (2000K-12000K) and green/magenta tint using Planckian Blackbody modeling.")
+def set_color_temperature_kelvin(kelvin: int = 5500, tint: float = 0.0) -> Dict[str, Any]:
+    return tools.tool_set_color_temperature_kelvin(kelvin, tint)
+
+
+@mcp_server.tool(name="add_photographic_grain", description="Adds authentic density-dependent silver halide film grain peaking in midtones and fading in pure highlights and blacks.")
+def add_photographic_grain(amount: float = 24.0, size: float = 1.0, roughness: float = 0.5) -> Dict[str, Any]:
+    return tools.tool_add_photographic_grain(amount, size, roughness)
+
+
 @mcp_server.tool(name="apply_film_profile", description="Applies authentic analog film emulation ('kodak_portra_400', 'fuji_pro_400h', 'cinematic_teal_orange', 'moody_nordic').")
 def apply_film_profile(profile: str = "kodak_portra_400") -> Dict[str, Any]:
     return tools.tool_apply_film_profile(profile)
