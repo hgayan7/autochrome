@@ -1,4 +1,4 @@
-# 📸 Autochrome
+# Autochrome
 
 > **Autonomous photographic color science engine, MCP server, and real-time live preview studio for AI Agents (Claude Code, Cursor, Gemini CLI, Antigravity).**
 
@@ -22,11 +22,11 @@
 
 ---
 
-## 🤖 AI Agent Quick Reference & Protocol (For LLMs & Assistants)
+## AI Agent Quick Reference & Protocol
 
 If you are an **AI Agent (Claude, Cursor, Gemini, Antigravity, OpenCode, Codex)**, Autochrome provides deterministic, professional-grade computer vision tools and color science heuristics to edit photos and annotate screenshots.
 
-### 📐 Standard 4-Step Agent Execution Lifecycle
+### Standard 4-Step Agent Execution Lifecycle
 
 When given a photo editing or screenshot annotation task, follow this standard sequence:
 
@@ -48,7 +48,7 @@ When given a photo editing or screenshot annotation task, follow this standard s
 └────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### ⚡ Agent Rules of Engagement & Guardrails
+### Agent Rules of Engagement & Guardrails
 1. **Always Open Preview First**: Calling `open_image(image_path)` automatically launches the **Native macOS Live Darkroom Preview** window (or Web Studio) on the user's screen. Inform the user they can press **`Space`** to hold-to-compare or **`S`** to toggle the split curtain slider.
 2. **Never Guess Parameters Without Diagnosis**: Always run `inspect_image()` to check `lighting_scenario` (e.g. `overcast_flat`, `golden_hour`, `harsh_sunlight`), `optical_depth_evaluation`, and `zone_system_analysis`.
 3. **Respect Optical Depth (Zero Fake Blur)**: If `has_natural_depth_of_field` is `True`, **DO NOT** apply fake lens blur. Use tonal separation and micro-contrast instead to avoid edge halos.
@@ -57,7 +57,7 @@ When given a photo editing or screenshot annotation task, follow this standard s
 
 ---
 
-## 🌟 The Two Core Agent Superpowers
+## The Two Core Agent Superpowers
 
 AI Agents can write code, browse the web, and run terminal commands. **Autochrome** gives them the missing visual superpowers:
 
@@ -65,7 +65,7 @@ AI Agents can write code, browse the web, and run terminal commands. **Autochrom
 ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                       AUTOCHROME AGENT SUPERPOWERS                                      │
 ├────────────────────────────────────────────────────┬────────────────────────────────────────────────────┤
-│ 📸 SUPERPOWER 01: AGENTS EDITING PHOTOS            │ ✏️ SUPERPOWER 02: AGENTS ANNOTATING SCREENSHOTS    │
+│ SUPERPOWER 01: AGENTS EDITING PHOTOS                │ SUPERPOWER 02: AGENTS ANNOTATING SCREENSHOTS       │
 │ • Ansel Adams 11-Zone Luminance Calibration        │ • CleanShot-Style macOS Dark Window Bezels         │
 │ • True Frequency Separation (100% Pore Retention)  │ • Multi-Stop Slate Gradient Mesh Backdrops         │
 │ • Kodak Portra 400 & Analog Film Emulation         │ • Curved Anti-Aliased Vector Arrows                │
@@ -76,7 +76,7 @@ AI Agents can write code, browse the web, and run terminal commands. **Autochrom
 
 ---
 
-## 🖥️ Live Darkroom Preview: Mac Native & Web Studio
+## Live Darkroom Preview: Mac Native & Web Studio
 
 Autochrome provides two preview experiences for monitoring AI agent edits in real-time, **preferring native Mac preview by default**:
 
@@ -84,7 +84,7 @@ Autochrome provides two preview experiences for monitoring AI agent edits in rea
 ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │                                        DUAL LIVE PREVIEW MODES                                          │
 ├────────────────────────────────────────────────────┬────────────────────────────────────────────────────┤
-│ 🍏 PREFERRED: NATIVE MAC PREVIEW WINDOW            │ 🌐 WEB BROWSER STUDIO (Cross-Platform)             │
+│ PREFERRED: NATIVE MAC PREVIEW WINDOW                │ WEB BROWSER STUDIO (Cross-Platform)                │
 │ • Default mode on macOS                            │ • Access via browser at http://localhost:8000      │
 │ • Dedicated floating darkroom window               │ • Real-time WebSocket canvas streaming            │
 │ • Zero browser tabs or URL bar clutter             │ • Interactive Split-Screen Curtain Slider (Key: S) │
@@ -107,7 +107,7 @@ autochrome preview path/to/your/photo.jpg --browser
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Installation
 ```bash
@@ -132,7 +132,7 @@ autochrome demo
 
 ---
 
-## 🤖 Connecting to AI Agents (Claude Code, Cursor, Gemini, Antigravity)
+## Connecting to AI Agents (Claude Code, Cursor, Gemini, Antigravity)
 
 Autochrome provides both **MCP Tools** (the execution engine) and an **Agent Skill (`SKILL.md`)** (the artistic heuristics and photographic color science brain).
 
@@ -167,7 +167,7 @@ In `.cursor/mcp.json` or Antigravity MCP settings:
 
 ---
 
-### 2. 🧠 Agent Skill Setup (`SKILL.md`)
+### 2. Agent Skill Setup (`SKILL.md`)
 
 While MCP provides raw tool endpoints, the **Autochrome Skill ([`SKILL.md`](SKILL.md))** teaches AI agents *how* to edit like professional colorists and master photographers rather than blindly executing random adjustments.
 
@@ -189,7 +189,7 @@ cp SKILL.md .cursor/skills/autochrome/SKILL.md
 
 ---
 
-## 🐍 Python SDK Reference (For Code-Generating Agents)
+## Python SDK Reference (For Code-Generating Agents)
 
 Agents writing direct Python automation scripts can import Autochrome engine modules directly:
 
@@ -215,9 +215,9 @@ tools.tool_export_image("output.png")
 
 ---
 
-## 🛠️ Complete MCP Tool Catalog
+## Complete MCP Tool Catalog
 
-### 🖥️ Live Darkroom Preview & Session Control
+### Live Darkroom Preview & Session Control
 | Tool Name | Parameters | Description |
 | :--- | :--- | :--- |
 | `open_image` | `image_path: str`, `launch_preview: bool = True` | Loads photo into active canvas and auto-launches Live Preview (Native macOS floating window or browser) |
@@ -226,7 +226,7 @@ tools.tool_export_image("output.png")
 | `undo` | *none* | Undoes the last editing action on the active canvas |
 | `redo` | *none* | Redoes the last undone action |
 
-### 📸 Photographic Color Science & Analog Film Stocks
+### Photographic Color Science & Analog Film Stocks
 | Tool Name | Parameters | Description |
 | :--- | :--- | :--- |
 | `classify_scene` | *none* | Scene semantics, content genre (portrait, landscape, street, architecture), and adaptive recommendations |
@@ -269,7 +269,7 @@ tools.tool_export_image("output.png")
 
 ---
 
-### ✏️ Framing & Screenshot Studio Tools
+### Framing & Screenshot Studio Tools
 | Tool Name | Parameters | Description |
 | :--- | :--- | :--- |
 | `smart_crop` | `aspect_ratio: str = "1:1"` ("1:1", "16:9", "4:5", "9:16", "4:3", "3:2") | Smart composition crop centered on face or focus point |
@@ -286,7 +286,7 @@ tools.tool_export_image("output.png")
 
 ---
 
-### 👁️ Vision & Inspection
+### Vision & Inspection
 | Tool Name | Parameters | Description |
 | :--- | :--- | :--- |
 | `inspect_image` | *none* | Returns luminance, contrast, dynamic range, dominant color palette, and face bounding coordinates |
@@ -294,7 +294,7 @@ tools.tool_export_image("output.png")
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Run the automated test suite:
 ```bash
@@ -303,5 +303,5 @@ pytest -v
 
 ---
 
-## 📄 License
+## License
 MIT License • Created by [@hgayan7](https://github.com/hgayan7)
