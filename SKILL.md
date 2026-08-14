@@ -1,6 +1,6 @@
 ---
-name: agentic-photo-editor
-description: Professional autonomous photographic color grading, portrait retouching, and Snapseed/Lightroom-grade image processing for AI agents.
+name: autochrome
+description: Autonomous photographic color science engine, screenshot annotation studio, and live darkroom preview for AI Agents (Claude Code, Cursor, Gemini).
 ---
 
 # Autochrome: Professional Photography & Color Science Playbook
