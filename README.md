@@ -6,6 +6,10 @@
 
 <div align="center">
 
+<img src="assets/icon.jpg" alt="Autochrome" width="128" height="128" style="border-radius: 22px;" />
+
+<br/><br/>
+
 ![Autochrome Product Launch Demo](assets/autochrome_demo.gif)
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
