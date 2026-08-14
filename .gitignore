@@ -43,6 +43,7 @@ generate_*.py
 *.mkv
 *.webm
 *.gif
+!assets/autochrome_demo.gif
 
 # Virtual Environments & Node
 .venv/

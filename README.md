@@ -1,20 +1,38 @@
 # 📸 Autochrome
 
-> **Autonomous photographic color science engine, MCP server, and real-time live preview studio for AI Agents (Claude, Gemini, GPT-4o, Antigravity).**
+> **Autonomous photographic color science engine, MCP server, and real-time live preview studio for AI Agents (Claude Code, Cursor, Gemini CLI, Antigravity).**
 
 ---
 
-## 🌟 Overview
+<div align="center">
 
-Generative AI models create new images from text prompts, but they hallucinate details, distort human identity, and lack pixel precision. Traditional photo editors require manual human mouse and stylus manipulation.
+![Autochrome Product Launch Demo](assets/autochrome_demo.gif)
 
-**Autochrome** is built for the **era of autonomous agents**:
-- **100% Local & Fast**: Runs entirely on your Mac/PC using NumPy, Pillow, and SciPy. Zero cloud dependencies.
-- **Master Photographic Color Science**: Dynamic Zone System exposure balancing, 8-channel HSL color mixing, 3-way color wheels (Lift/Gamma/Gain), tone curves, and analog film emulation profiles.
-- **Portrait & Texture Retouching**: Face spotlight illumination, texture skin smoothing, eye clarity pop, micro-contrast structure, and patch healing.
-- **Presentation & Screenshot Studio**: Native macOS window frames with traffic light bezels, drop shadows, mesh gradient backdrops, curved vector arrows, spotlight callout boxes, highlighters, numbered tutorial badges, and privacy redactions (Gaussian blur, mosaic pixelate, blackout).
-- **Distraction-Free Live Preview**: Real-time WebSocket live canvas that updates instantly as the agent executes each edit step, with a press-and-hold original comparison feature.
-- **Model Context Protocol (MCP) Server**: Plugs directly into Claude Desktop, Cursor, Gemini CLI, or custom agents with standard stdio transport.
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![MCP Ready](https://img.shields.io/badge/MCP-Standard%20stdio-green.svg)](https://modelcontextprotocol.io/)
+[![Zero Diffusion Distortions](https://img.shields.io/badge/CV-100%25%20Deterministic-orange.svg)](https://github.com/hgayan7/autochrome)
+
+</div>
+
+---
+
+## 🌟 The Two Core Agent Superpowers
+
+AI Agents can write code, browse the web, and run terminal commands. **Autochrome** gives them the missing visual superpowers:
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                       AUTOCHROME AGENT SUPERPOWERS                                      │
+├────────────────────────────────────────────────────┬────────────────────────────────────────────────────┤
+│ 📸 SUPERPOWER 01: AGENTS EDITING PHOTOS            │ ✏️ SUPERPOWER 02: AGENTS ANNOTATING SCREENSHOTS    │
+│ • Ansel Adams 11-Zone Luminance Calibration        │ • CleanShot-Style macOS Dark Window Bezels         │
+│ • True Frequency Separation (100% Pore Retention)  │ • Multi-Stop Slate Gradient Mesh Backdrops         │
+│ • Kodak Portra 400 & Analog Film Emulation         │ • Curved Anti-Aliased Vector Arrows                │
+│ • 8-Channel HSL Mixing & 3-Way Color Wheels        │ • Sleek Embedded Pill Badges & Label Chips         │
+│ • 100% Deterministic CV — Zero Diffusion Artifacts │ • 2.2x Floating Optical Detail Loupes              │
+└────────────────────────────────────────────────────┴────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -23,8 +41,8 @@ Generative AI models create new images from text prompts, but they hallucinate d
 ### 1. Installation
 ```bash
 # Clone repository
-git clone https://github.com/your-username/agentic-photo-editor.git
-cd agentic-photo-editor
+git clone https://github.com/hgayan7/autochrome.git
+cd autochrome
 
 # Create virtual environment and install
 python3 -m venv .venv
@@ -35,22 +53,22 @@ pip install -e .
 ---
 
 ### 2. Run the Interactive Tour Demo
-Watch the agent autonomously edit a portrait and beautify a presentation screenshot with real-time live preview:
+Watch the agent autonomously develop a photo and beautify a presentation screenshot with real-time live preview:
 ```bash
 autochrome demo
 ```
-*This opens your browser to `http://localhost:8000` and streams the live transformations step-by-step!*
+*Opens your browser to `http://localhost:8000` and streams the live transformations step-by-step with hold-to-compare and split curtain slider controls.*
 
 ---
 
-### 3. Open Live Preview on Any Image
+### 3. Open Live Darkroom Preview on Any Image
 ```bash
 autochrome preview path/to/your/photo.jpg
 ```
 
 ---
 
-## 🤖 Connecting to AI Agents (Claude Desktop, Cursor, Gemini)
+## 🤖 Connecting to AI Agents (Claude Code, Cursor, Gemini)
 
 ### Claude Desktop Configuration
 Add Autochrome to your `claude_desktop_config.json`:
@@ -59,7 +77,20 @@ Add Autochrome to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "autochrome": {
-      "command": "/Users/your-username/agentic-photo-editor/.venv/bin/autochrome",
+      "command": "/path/to/autochrome/.venv/bin/autochrome",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+### Cursor & Antigravity MCP Setup
+In `.cursor/mcp.json` or Antigravity MCP settings:
+```json
+{
+  "mcpServers": {
+    "autochrome": {
+      "command": "autochrome",
       "args": ["mcp"]
     }
   }
@@ -68,9 +99,9 @@ Add Autochrome to your `claude_desktop_config.json`:
 
 ---
 
-## 🛠️ Complete Tool Catalog
+## 🛠️ Complete MCP Tool Catalog
 
-### Photographic Color Science & Deterministic CV Tools
+### 📸 Photographic Color Science & Deterministic CV Tools
 | Tool Name | Parameters | Description |
 | :--- | :--- | :--- |
 | `master_develop` | *none* | Autonomous 5-phase master development loop elevating quality scores to 90+ Master Studio Quality |
@@ -102,7 +133,9 @@ Add Autochrome to your `claude_desktop_config.json`:
 | `heal_blemish` | `center_x`, `center_y`, `radius` | Content-aware inpaint patch healing brush |
 | `selective_adjust`| `center_x`, `center_y`, `radius`, `brightness`, `contrast` | Localized radial control points |
 
-### Framing & Screenshot Studio Tools
+---
+
+### ✏️ Framing & Screenshot Studio Tools
 | Tool Name | Parameters | Description |
 | :--- | :--- | :--- |
 | `smart_crop` | `aspect_ratio` ("1:1", "16:9", "4:5", "9:16") | Smart composition crop centered on face or focus point |
@@ -117,7 +150,9 @@ Add Autochrome to your `claude_desktop_config.json`:
 | `pixelate_region` | `x`, `y`, `width`, `height`, `block_size` | Mosaic pixelation for emails / names |
 | `blackout_region` | `x`, `y`, `width`, `height` | Solid opaque blackout bar |
 
-### Vision & Inspection
+---
+
+### 👁️ Vision & Inspection
 | Tool Name | Description |
 | :--- | :--- |
 | `inspect_image` | Returns luminance, contrast, dynamic range, dominant color palette, and face bounding coordinates |
@@ -135,4 +170,4 @@ pytest -v
 ---
 
 ## 📄 License
-MIT License
+MIT License • Created by [@hgayan7](https://github.com/hgayan7)
