@@ -22,8 +22,10 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# Images and User Sample Media
+# Images, User Sample Media & 3D LUTs
 sample_images/
+demo_assets/
+wow_assets/
 *.jpg
 *.jpeg
 *.png
@@ -32,11 +34,22 @@ sample_images/
 *.tiff
 *.cube
 
-# Virtual Environments
+# Video Generation Scripts & Render Outputs
+remotion_app/
+generate_*.py
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.gif
+
+# Virtual Environments & Node
 .venv/
 env/
 venv/
 ENV/
+node_modules/
 
 # Testing & Cache
 .pytest_cache/
